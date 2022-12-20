@@ -10,9 +10,15 @@ console.log(submitInput);
 
 function submissionForm(event) {
   event.preventDefault();
+  $(".error").remove();
   var ingredientItem = submitInput.val();
-  listEL.append("<li>" + ingredientItem + "<li>");
+
+  listEL.append("<li>" + ingredientItem + "</li>");
+  if (!ingredientItem) {
+    listEL.append(`<li class = "error"> please enter an ingredient</li>`);
+  }
   saveIngredients();
+  submitInput.val("");
 }
 
 function clearIngredients(event) {
@@ -36,6 +42,7 @@ function saveIngredients() {
 }
 
 function clearLocalStorage(storedIngredients) {
+  listEL.empty();
   storedIngredients = [];
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
 }
@@ -43,6 +50,7 @@ function clearLocalStorage(storedIngredients) {
 function Searchbutton(event) {
   event.preventDefault();
 
+  reset();
   var storedIngredients = JSON.parse(localStorage.getItem("ingredient"));
   console.log(storedIngredients);
   console.log(storedIngredients.join(",+"));
@@ -73,21 +81,24 @@ function Searchbutton(event) {
                   <div class="card">
                       <div class="card-image">
                           <img src="${data[i].image}">
-                          <span class="card-title"></span>
                       </div>
                       <div class="card-content">
+                      <p>'${data[i].title}'</p>
                       </div>
                   </div>
 
               </div>
     `;
-
-        // var picture = document.createElement('<img>')
-
-        // picture.
       }
     });
+  clearLocalStorage();
 }
+function reset() {
+  while (cardcontainer.firstChild) {
+    cardcontainer.removeChild(cardcontainer.firstChild);
+  }
+}
+
 submitbutton.on("click", Searchbutton);
 addIngredient.on("click", submissionForm);
 erase.on("click", clearIngredients);
