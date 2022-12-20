@@ -4,11 +4,12 @@ var submitInput = $("#ingredientInput");
 var addIngredient = $("#sbmit");
 var erase = $("#clear");
 console.log(submitInput);
+
 function submissionForm(event) {
   event.preventDefault();
   var ingredientItem = submitInput.val();
-  console.log(ingredientItem);
   listEL.append("<li>" + ingredientItem + "<li>");
+  saveIngredients();
 }
 
 function clearIngredients(event) {
@@ -16,5 +17,23 @@ function clearIngredients(event) {
   listEL.empty();
 }
 
+function saveIngredients() {
+  var ingredients = submitInput.val();
+  console.log(ingredients);
+  var storedIngredients = JSON.parse(localStorage.getItem("ingredient"));
+  if (storedIngredients === null) {
+    storedIngredients = [];
+  }
+
+  if (storedIngredients.includes(ingredients)) {
+    return;
+  }
+  storedIngredients.push(ingredients);
+  localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
+}
+function clearLocalStorage() {
+  storedIngredients = [];
+  localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
+}
 addIngredient.on("click", submissionForm);
 erase.on("click", clearIngredients);
