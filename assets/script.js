@@ -9,7 +9,6 @@ function submissionForm(event) {
   event.preventDefault();
   var ingredientItem = submitInput.val();
   listEL.append("<li>" + ingredientItem + "<li>");
-  saveIngredients();
 }
 
 function clearIngredients(event) {
@@ -31,9 +30,11 @@ function saveIngredients() {
   storedIngredients.push(ingredients);
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
 }
+
 function clearLocalStorage() {
   storedIngredients = [];
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
 }
+
 addIngredient.on("click", submissionForm);
 erase.on("click", clearIngredients);
