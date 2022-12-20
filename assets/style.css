@@ -6,11 +6,12 @@ header {
   display: flex;
   justify-content: center;
   background-color: red;
+  color: white
 }
 
 .ingredients {
   background-color: blue;
-  height: 100vh;
+  height: 150vh;
 }
 
 ul {
