@@ -6,6 +6,7 @@ var erase = $("#clear");
 var submitbutton = $("#submitbutton");
 var apikey = "d118999455904a82adf6e360ee3fa28e";
 var cardcontainer = document.getElementById("cardcontainer");
+var beercontainer =document.getElementById("beer")
 console.log(submitInput);
 
 function submissionForm(event) {
@@ -56,6 +57,8 @@ function Searchbutton(event) {
   console.log(storedIngredients.join(",+"));
 
   var seperatedIngredients = storedIngredients.toString().replaceAll(",", ",+");
+  var BeerIngredients = storedIngredients.toString().replaceAll(",", "_");
+
   var api =
     "https://api.spoonacular.com/recipes/findByIngredients?ingredients=" +
     seperatedIngredients +
@@ -73,12 +76,18 @@ function Searchbutton(event) {
       return response.json();
     })
     .then(function (data) {
+
       console.log(data);
+
+
+
+
+
 
       for (var i = 0; i < data.length; i++) {
         cardcontainer.innerHTML += `
     <div class="col s12 m6 l3">
-                  <div class="card">
+                  <div class="card" data-id="${data[i].id}">
                       <div class="card-image">
                           <img src="${data[i].image}">
                       </div>
@@ -90,15 +99,71 @@ function Searchbutton(event) {
               </div>
     `;
       }
+
+      beerapi = 
+
+
+
+
     });
   clearLocalStorage();
 }
-function reset() {
-  while (cardcontainer.firstChild) {
-    cardcontainer.removeChild(cardcontainer.firstChild);
-  }
-}
 
-submitbutton.on("click", Searchbutton);
-addIngredient.on("click", submissionForm);
-erase.on("click", clearIngredients);
+function sendtorecipe(event) {
+  event.preventDefault()
+
+  var card = event.target
+  console.log(event.target)
+  if (
+    card.matches(".card, .card img, .card p")
+  ) {
+
+    card = card.closest(".card")
+
+    var id = card.dataset.id
+
+    urlapi = "https://api.spoonacular.com/recipes/" + id + "/information?includeNutrition=false&apiKey=" + apikey;
+
+    fetch(urlapi, {
+      method: "GET",
+      credntials: "same-orgin",
+      redirect: "follow",
+    })
+      .then(function (response) {
+        console.log(response);
+        return response.json();
+      })
+      .then(function (link) {
+
+        console.log(link)
+
+        var recipelink = link.sourceUrl
+
+        window.open(recipelink, "_blank");
+
+
+
+
+      })
+
+  
+
+
+  
+  
+
+
+
+}}
+
+  function reset() {
+    while (cardcontainer.firstChild) {
+      cardcontainer.removeChild(cardcontainer.firstChild);
+    }
+  }
+
+  submitbutton.on("click", Searchbutton);
+  addIngredient.on("click", submissionForm);
+  erase.on("click", clearIngredients);
+  cardcontainer.addEventListener('click', sendtorecipe);
+
