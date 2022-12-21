@@ -6,7 +6,7 @@ header {
   display: flex;
   justify-content: center;
   background-color: red;
-  color: white
+  color: white;
 }
 
 .ingredients {
@@ -29,14 +29,24 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 12px 28px;
   margin: 10px;
   transition-duration: 0.4s;
 }
 
 button:hover {
-  background-color: #ffffff; 
+  background-color: #ffffff;
   color: rgb(0, 0, 0);
 }
 
+.card .card-image img {
+  max-height: 158px;
+  width: auto;
+  margin: auto;
+}
+
+.card {
+  min-height: 251px;
+  min-width: 215px;
+}
