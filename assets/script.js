@@ -7,6 +7,8 @@ var submitbutton = $("#submitbutton");
 var apikey = "d118999455904a82adf6e360ee3fa28e";
 var cardcontainer = document.getElementById("cardcontainer");
 var beercontainer = document.getElementById("beer");
+var clearSlate = document.getElementById("gone");
+
 console.log(submitInput);
 
 function submissionForm(event) {
@@ -128,7 +130,15 @@ function Searchbutton(event) {
       clearLocalStorage();
     });
 }
-
+function beerRun(event) {
+  event.preventDefault();
+  var card = event.target;
+  if (card.matches(".card, .card img, .card p")) {
+    card = card.closest(".card");
+    beerLink = "https://www.brewdog.com/usa/beer";
+    window.open(beerLink, "_blank");
+  }
+}
 function sendtorecipe(event) {
   event.preventDefault();
 
@@ -168,9 +178,14 @@ function reset() {
   while (cardcontainer.firstChild) {
     cardcontainer.removeChild(cardcontainer.firstChild);
   }
+  while (beercontainer.firstChild) {
+    beercontainer.removeChild(beercontainer.firstChild);
+  }
 }
 
 submitbutton.on("click", Searchbutton);
 addIngredient.on("click", submissionForm);
 erase.on("click", clearIngredients);
 cardcontainer.addEventListener("click", sendtorecipe);
+beercontainer.addEventListener("click", beerRun);
+clearSlate.addEventListener("click", reset);

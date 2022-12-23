@@ -50,3 +50,7 @@ button:hover {
   min-height: 251px;
   min-width: 215px;
 }
+
+.card:hover {
+  box-shadow: 16px, 16px, 16px 16px, rgb(0, 1, 4);
+}
