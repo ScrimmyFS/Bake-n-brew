@@ -100,7 +100,7 @@ function Searchbutton(event) {
     `;
       }
 
-      beerapi = 
+     
 
 
 
