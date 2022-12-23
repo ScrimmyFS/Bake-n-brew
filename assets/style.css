@@ -55,9 +55,8 @@ button:hover {
   min-width: 215px;
 }
 
-.card:hover {
+.card:hover{
   box-shadow: 8px 8px 8px #3e8091;
-  cursor: pointer;
 }
 
 .card:focus {
