@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- calls fonts and materalize css -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed&display=swap" rel="stylesheet">
@@ -19,7 +20,7 @@
 
 <body>
 
-
+<!-- this allows the user to search for ingredients -->
     <div class="row">
 
         <div class="col s12 m4 l3 ingredients">
@@ -35,29 +36,31 @@
                         </div>
                     </div>
                 </form>
+                <!-- holds the ingredient list -->
                 <ul id="ingredient-list"></ul>
             </div>
 
 
         </div>
-
+<!-- holds search and clear buttons -->
         <div class="col s12 m8 l9">
             <div>
                 <button id="submitbutton">Submit</button>
                 <button id="gone">Clear</button>
             </div>
 
-
+<!-- holds recipe cards -->
             <div class="row" id="cardcontainer" style="margin-top: 40px;">
 
             </div>
+            <!-- holds beer cards -->
             <div class="row" id="beer" style="margin-top: 40px;">
 
             </div>
         </div>
 
 
-
+<!-- calls Jquery -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="./assets/script.js"></script>
 </body>

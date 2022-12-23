@@ -13,6 +13,7 @@ console.log(submitInput);
 
 function submissionForm(event) {
   event.preventDefault();
+
   $(".error").remove();
   var ingredientItem = submitInput.val();
 
@@ -45,7 +46,6 @@ function saveIngredients() {
 }
 
 function clearLocalStorage(storedIngredients) {
-  
   storedIngredients = [];
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
 }
@@ -64,7 +64,7 @@ function Searchbutton(event) {
     "https://api.punkapi.com/v2/beers?food=" +
     beerIngredients +
     "&page=1&per_page=4";
-    var randomapi = "https://api.punkapi.com/v2/beers/random"
+  var randomapi = "https://api.punkapi.com/v2/beers/random";
   fetch(beerapi, {
     method: "GET",
     credntials: "same-orgin",
@@ -76,18 +76,18 @@ function Searchbutton(event) {
     })
     .then(function (beer) {
       console.log(beer);
-        if (beer.length <= 0){
-          fetch(randomapi, {
-            method: "GET",
-            credntials: "same-orgin",
-            redirect: "follow",
-          })
+      if (beer.length <= 0) {
+        fetch(randomapi, {
+          method: "GET",
+          credntials: "same-orgin",
+          redirect: "follow",
+        })
           .then(function (response) {
             console.log(response);
             return response.json();
           })
           .then(function (random) {
-            console.log(random)
+            console.log(random);
 
             for (var i = 0; i < random.length; i++) {
               beercontainer.innerHTML += `
@@ -104,13 +104,9 @@ function Searchbutton(event) {
                     </div>
           `;
             }
-          })
+          });
+      }
 
-
-
-
-        }
-      
       for (var i = 0; i < beer.length; i++) {
         beercontainer.innerHTML += `
     <div class="col s12 m6 l3">
