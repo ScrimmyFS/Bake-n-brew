@@ -6,7 +6,9 @@ var erase = $("#clear");
 var submitbutton = $("#submitbutton");
 var apikey = "d118999455904a82adf6e360ee3fa28e";
 var cardcontainer = document.getElementById("cardcontainer");
-var beercontainer =document.getElementById("beer")
+var beercontainer = document.getElementById("beer");
+var clearSlate = document.getElementById("gone");
+
 console.log(submitInput);
 
 function submissionForm(event) {
@@ -57,16 +59,12 @@ function Searchbutton(event) {
   console.log(storedIngredients.join(",+"));
 
   var seperatedIngredients = storedIngredients.toString().replaceAll(",", ",+");
-  var BeerIngredients = storedIngredients.toString().replaceAll(",", "_");
-
-  var api =
-    "https://api.spoonacular.com/recipes/findByIngredients?ingredients=" +
-    seperatedIngredients +
-    "&number=4&limit=3&apiKey=" +
-    apikey;
-  console.log(api);
-  // working
-  fetch(api, {
+  var beerIngredients = storedIngredients.toString().replaceAll(",", "_");
+  var beerapi =
+    "https://api.punkapi.com/v2/beers?food=" +
+    beerIngredients +
+    "&page=1&per_page=4";
+  fetch(beerapi, {
     method: "GET",
     credntials: "same-orgin",
     redirect: "follow",
@@ -75,17 +73,46 @@ function Searchbutton(event) {
       console.log(response);
       return response.json();
     })
-    .then(function (data) {
+    .then(function (beer) {
+      console.log(beer);
 
-      console.log(data);
+      for (var i = 0; i < beer.length; i++) {
+        beercontainer.innerHTML += `
+    <div class="col s12 m6 l3">
+                  <div class="card" data-id="$">
+                      <div class="card-image">
+                          <img src="${beer[i].image_url}">
+                      </div>
+                      <div class="card-content">
+                      <p>'${beer[i].name}'</p>
+                      </div>
+                  </div>
 
+              </div>
+    `;
+      }
 
+      var api =
+        "https://api.spoonacular.com/recipes/findByIngredients?ingredients=" +
+        seperatedIngredients +
+        "&number=4&limit=3&apiKey=" +
+        apikey;
+      console.log(api);
+      // working
+      fetch(api, {
+        method: "GET",
+        credntials: "same-orgin",
+        redirect: "follow",
+      })
+        .then(function (response) {
+          console.log(response);
+          return response.json();
+        })
+        .then(function (data) {
+          console.log(data);
 
-
-
-
-      for (var i = 0; i < data.length; i++) {
-        cardcontainer.innerHTML += `
+          for (var i = 0; i < data.length; i++) {
+            cardcontainer.innerHTML += `
     <div class="col s12 m6 l3">
                   <div class="card" data-id="${data[i].id}">
                       <div class="card-image">
@@ -98,31 +125,35 @@ function Searchbutton(event) {
 
               </div>
     `;
-      }
-
-     
-
-
-
-
+          }
+        });
+      clearLocalStorage();
     });
-  clearLocalStorage();
 }
-
+function beerRun(event) {
+  event.preventDefault();
+  var card = event.target;
+  if (card.matches(".card, .card img, .card p")) {
+    card = card.closest(".card");
+    beerLink = "https://www.brewdog.com/usa/beer";
+    window.open(beerLink, "_blank");
+  }
+}
 function sendtorecipe(event) {
-  event.preventDefault()
+  event.preventDefault();
 
-  var card = event.target
-  console.log(event.target)
-  if (
-    card.matches(".card, .card img, .card p")
-  ) {
+  var card = event.target;
+  console.log(event.target);
+  if (card.matches(".card, .card img, .card p")) {
+    card = card.closest(".card");
 
-    card = card.closest(".card")
+    var id = card.dataset.id;
 
-    var id = card.dataset.id
-
-    urlapi = "https://api.spoonacular.com/recipes/" + id + "/information?includeNutrition=false&apiKey=" + apikey;
+    urlapi =
+      "https://api.spoonacular.com/recipes/" +
+      id +
+      "/information?includeNutrition=false&apiKey=" +
+      apikey;
 
     fetch(urlapi, {
       method: "GET",
@@ -134,36 +165,27 @@ function sendtorecipe(event) {
         return response.json();
       })
       .then(function (link) {
+        console.log(link);
 
-        console.log(link)
-
-        var recipelink = link.sourceUrl
+        var recipelink = link.sourceUrl;
 
         window.open(recipelink, "_blank");
-
-
-
-
-      })
-
-  
-
-
-  
-  
-
-
-
-}}
-
-  function reset() {
-    while (cardcontainer.firstChild) {
-      cardcontainer.removeChild(cardcontainer.firstChild);
-    }
+      });
   }
+}
 
-  submitbutton.on("click", Searchbutton);
-  addIngredient.on("click", submissionForm);
-  erase.on("click", clearIngredients);
-  cardcontainer.addEventListener('click', sendtorecipe);
+function reset() {
+  while (cardcontainer.firstChild) {
+    cardcontainer.removeChild(cardcontainer.firstChild);
+  }
+  while (beercontainer.firstChild) {
+    beercontainer.removeChild(beercontainer.firstChild);
+  }
+}
 
+submitbutton.on("click", Searchbutton);
+addIngredient.on("click", submissionForm);
+erase.on("click", clearIngredients);
+cardcontainer.addEventListener("click", sendtorecipe);
+beercontainer.addEventListener("click", beerRun);
+clearSlate.addEventListener("click", reset);
