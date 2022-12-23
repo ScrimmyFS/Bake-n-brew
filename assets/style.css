@@ -46,11 +46,20 @@ button:hover {
   margin: auto;
 }
 
+#cardcontainer .card .card-image img {
+  max-width: 214px;
+}
+
 .card {
   min-height: 251px;
   min-width: 215px;
 }
 
 .card:hover {
-  box-shadow: 16px, 16px, 16px 16px, rgb(0, 1, 4);
+  box-shadow: 8px 8px 8px rgb(81, 118, 231);
+  cursor: pointer;
+}
+
+.card:focus {
+  box-shadow: 8px 8px 8px rgb(81, 118, 231);
 }
