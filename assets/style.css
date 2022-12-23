@@ -2,26 +2,42 @@ body {
   background-color: #bbdae2;
 }
 header {
-  padding: 20px;
+
   display: flex;
   justify-content: center;
   background-color: #64abbd ;
-  color: white;
+  color: #ff5722;
+
 }
 
+
+h1{
+  font-family:'Sansita Swashed', "cursive"; 
+  font-weight: bold;
+  font-size: 100px;
+  
+
+}
 .ingredients {
   background-color: #9ecad6;
   height: 150vh;
 }
+::placeholder {
+  color: black
+}
 
 ul {
-  color: white;
-  font-size: 20px;
+  color: #ff5722;
+  font-size: 30px;
   text-align: center;
 }
 
+ul li {
+  font-family:'Sansita Swashed', "cursive"; 
+}
+
 button {
-  background-color: #555555; /* Green */
+  background-color: #555555; 
   border: none;
   color: white;
   padding: 15px 32px;
@@ -53,6 +69,7 @@ button:hover {
 .card {
   min-height: 251px;
   min-width: 215px;
+  background-color: #d6e9ee;
 }
 
 .card:hover{
