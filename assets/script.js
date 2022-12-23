@@ -11,25 +11,28 @@ var clearSlate = document.getElementById("gone");
 
 console.log(submitInput);
 
+// saves ingredients entered to local storage and puts them in a list
 function submissionForm(event) {
   event.preventDefault();
-
+  // removes error msg
   $(".error").remove();
   var ingredientItem = submitInput.val();
-
+  // if no ingredient is added, display error
   listEL.append("<li>" + ingredientItem + "</li>");
   if (!ingredientItem) {
     listEL.append(`<li class = "error"> please enter an ingredient</li>`);
   }
   saveIngredients();
+  // keeps input area blank
   submitInput.val("");
 }
-
+// empties the list when button is clicked
 function clearIngredients(event) {
   event.preventDefault();
   listEL.empty();
 }
 
+// saves ingredients to local storage
 function saveIngredients() {
   var ingredients = submitInput.val();
   console.log(ingredients);
@@ -44,20 +47,22 @@ function saveIngredients() {
   storedIngredients.push(ingredients);
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
 }
-
+// clears local storage
 function clearLocalStorage(storedIngredients) {
   storedIngredients = [];
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
 }
-// working
+
+// searches the api
 function Searchbutton(event) {
   event.preventDefault();
-
+  // if cards exist, overwrites on search
   reset();
+  // searches ingredient based on local storage
   var storedIngredients = JSON.parse(localStorage.getItem("ingredient"));
   console.log(storedIngredients);
   console.log(storedIngredients.join(",+"));
-
+  // adds (+ for comma in seperatedIngredients) adds (_ for beerIngredients)
   var seperatedIngredients = storedIngredients.toString().replaceAll(",", ",+");
   var beerIngredients = storedIngredients.toString().replaceAll(",", "_");
   var beerapi =
@@ -74,6 +79,7 @@ function Searchbutton(event) {
       console.log(response);
       return response.json();
     })
+    // if beer api does not find a match for ingredients call a random beer
     .then(function (beer) {
       console.log(beer);
       if (beer.length <= 0) {
@@ -88,7 +94,7 @@ function Searchbutton(event) {
           })
           .then(function (random) {
             console.log(random);
-
+            // makes a card for beer results
             for (var i = 0; i < random.length; i++) {
               beercontainer.innerHTML += `
           <div class="col s12 m6 l3">
@@ -106,7 +112,7 @@ function Searchbutton(event) {
             }
           });
       }
-
+      //  makes card for beer results
       for (var i = 0; i < beer.length; i++) {
         beercontainer.innerHTML += `
     <div class="col s12 m6 l3">
@@ -122,7 +128,7 @@ function Searchbutton(event) {
               </div>
     `;
       }
-
+      // calls ingredients for recipe api
       var api =
         "https://api.spoonacular.com/recipes/findByIngredients?ingredients=" +
         seperatedIngredients +
@@ -161,6 +167,7 @@ function Searchbutton(event) {
       clearLocalStorage();
     });
 }
+// links to beer website
 function beerRun(event) {
   event.preventDefault();
   var card = event.target;
@@ -170,6 +177,7 @@ function beerRun(event) {
     window.open(beerLink, "_blank");
   }
 }
+// calls api to send user to specific recipe when clicked
 function sendtorecipe(event) {
   event.preventDefault();
 
@@ -205,6 +213,7 @@ function sendtorecipe(event) {
   }
 }
 
+// resets card container
 function reset() {
   while (cardcontainer.firstChild) {
     cardcontainer.removeChild(cardcontainer.firstChild);
