@@ -45,7 +45,7 @@ function saveIngredients() {
 }
 
 function clearLocalStorage(storedIngredients) {
-  listEL.empty();
+  
   storedIngredients = [];
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
 }
@@ -64,6 +64,7 @@ function Searchbutton(event) {
     "https://api.punkapi.com/v2/beers?food=" +
     beerIngredients +
     "&page=1&per_page=4";
+    var randomapi = "https://api.punkapi.com/v2/beers/random"
   fetch(beerapi, {
     method: "GET",
     credntials: "same-orgin",
@@ -75,7 +76,41 @@ function Searchbutton(event) {
     })
     .then(function (beer) {
       console.log(beer);
+        if (beer.length <= 0){
+          fetch(randomapi, {
+            method: "GET",
+            credntials: "same-orgin",
+            redirect: "follow",
+          })
+          .then(function (response) {
+            console.log(response);
+            return response.json();
+          })
+          .then(function (random) {
+            console.log(random)
 
+            for (var i = 0; i < random.length; i++) {
+              beercontainer.innerHTML += `
+          <div class="col s12 m6 l3">
+                        <div class="card" data-id="$">
+                            <div class="card-image">
+                                <img src="${random[i].image_url}">
+                            </div>
+                            <div class="card-content">
+                            <p>'${random[i].name}'</p>
+                            </div>
+                        </div>
+      
+                    </div>
+          `;
+            }
+          })
+
+
+
+
+        }
+      
       for (var i = 0; i < beer.length; i++) {
         beercontainer.innerHTML += `
     <div class="col s12 m6 l3">
@@ -189,3 +224,4 @@ erase.on("click", clearIngredients);
 cardcontainer.addEventListener("click", sendtorecipe);
 beercontainer.addEventListener("click", beerRun);
 clearSlate.addEventListener("click", reset);
+clearLocalStorage();
