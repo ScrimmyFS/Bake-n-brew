@@ -1,22 +1,18 @@
+/* holds styles for body, header, h1, ul, li, and buttons */
 body {
   background-color: #bbdae2;
 }
 header {
-
   display: flex;
   justify-content: center;
-  background-color: #64abbd ;
+  background-color: #64abbd;
   color: #ff5722;
-
 }
 
-
-h1{
-  font-family:'Sansita Swashed', "cursive"; 
+h1 {
+  font-family: "Sansita Swashed", "cursive";
   font-weight: bold;
   font-size: 100px;
-  
-
 }
 
 ul {
@@ -26,10 +22,10 @@ ul {
 }
 
 ul li {
-  font-family:'Sansita Swashed', "cursive"; 
+  font-family: "Sansita Swashed", "cursive";
 }
 button {
-  background-color: #555555; 
+  background-color: #555555;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -43,23 +39,18 @@ button {
   transition-duration: 0.4s;
 }
 
+button:hover {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+/* holds styling for classes */
 .ingredients {
   background-color: #9ecad6;
   height: 150vh;
 }
+/* styles placeholder in the input */
 ::placeholder {
-  color: black
-}
-
-
-
-
-
-
-
-button:hover {
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
+  color: black;
 }
 
 .card .card-image img {
@@ -68,20 +59,22 @@ button:hover {
   margin: auto;
 }
 
-#cardcontainer .card .card-image img {
-  max-width: 214px;
-}
-
 .card {
   min-height: 251px;
   min-width: 215px;
   background-color: #d6e9ee;
 }
 
-.card:hover{
+/* adds box shadow to cards */
+.card:hover {
   box-shadow: 8px 8px 8px #3e8091;
+  cursor: pointer;
 }
 
 .card:focus {
   box-shadow: 8px 8px 8px #3e8091;
+}
+/* confines images to cards */
+#cardcontainer .card .card-image img {
+  max-width: 214px;
 }
