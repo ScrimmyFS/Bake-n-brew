@@ -22,7 +22,7 @@ THEN the recipe list is cleared.
 ## Repository and Deployed webpage
 
 https://github.com/ScrimmyFS/Bake-n-brew \
-https://scrimmyfs.github.io/Bake-n-brew/
+https://scrimmyfs.github.io/Bake-n-brew/ \
 
 
 ## Demo
@@ -55,3 +55,7 @@ Developed by:
 
 ### Framework
 > * [Materialize](https://materializecss.com/)
+
+### Future Development
+
+> * [Github Issues](https://github.com/ScrimmyFS/Bake-n-brew/issues)
