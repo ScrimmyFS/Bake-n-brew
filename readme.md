@@ -19,10 +19,17 @@ THEN I am taken to a new tab that gives me the recipe.\
 WHEN the "Clear" button is clicked,\
 THEN the recipe list is cleared.
 
+## Repository and Deployed webpage
+
+https://github.com/ScrimmyFS/Bake-n-brew \
+https://scrimmyfs.github.io/Bake-n-brew/
+
 
 ## Demo
 
 ![](assets/demo.png)
+
+
 ## Usage
 
 > * Type an ingredient in the ingredient field in the left sidebar.
