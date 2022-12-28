@@ -2,6 +2,7 @@
 body {
   background-color: #bbdae2;
 }
+
 header {
   display: flex;
   justify-content: center;
@@ -9,6 +10,14 @@ header {
   color: #ff5722;
 }
 
+figure {
+  height: 400px;
+  width: 100%;
+  margin-bottom: 25px;
+  background-image: url("./Crazy-Dave.jpeg");
+  background-size: cover;
+  background-position: center;
+}
 h1 {
   font-family: "Sansita Swashed", "cursive";
   font-weight: bold;
