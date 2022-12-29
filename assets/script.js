@@ -16,16 +16,32 @@ function submissionForm(event) {
   event.preventDefault();
   // removes error msg
   $(".error").remove();
-  var ingredientItem = submitInput.val();
-  // if no ingredient is added, display error
-  listEL.append("<li>" + ingredientItem + "</li>");
+  var ingredientItem = submitInput.val().trim();
+  // if no ingredient is added, display error 
   if (!ingredientItem) {
     listEL.append(`<li class = "error"> please enter an ingredient</li>`);
-  }
+  } else{
+    listEL.append(
+    ` <li class = "ing"> ${ingredientItem} </li> <button class="remove">remove</button>`
+  )};
+
+ 
+
+  eventListenerAdd();
+
+ 
   saveIngredients();
   // keeps input area blank
   submitInput.val("");
 }
+
+function eventListenerAdd() {
+  var clearButton = $(".remove");
+  for (i = 0; i < clearButton.length; i++) {
+    clearButton[i].addEventListener("click", ingredientErase);
+  }
+}
+
 // empties the list when button is clicked
 function clearIngredients(event) {
   event.preventDefault();
@@ -49,7 +65,7 @@ function saveIngredients() {
 }
 // clears local storage
 function clearLocalStorage(storedIngredients) {
-  storedIngredients = [];
+  var storedIngredients = [];
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
 }
 
@@ -167,6 +183,25 @@ function Searchbutton(event) {
       clearLocalStorage();
     });
 }
+
+function ingredientErase(event) {
+  event.preventDefault();
+  var button = event.target;
+  console.log(event.target);
+  console.log(button); 
+  
+  var found = this.previousElementSibling.textContent.trim()
+  
+  var storedIngredients = JSON.parse(localStorage.getItem("ingredient"));
+   storedIngredients = storedIngredients.filter(function(ingredient) {
+    console.log(ingredient)
+    return ingredient != found });
+  localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
+console.log(found)
+  $(this).prev().remove();
+  $(this).remove();
+}
+
 // links to beer website
 function beerRun(event) {
   event.preventDefault();
@@ -229,4 +264,5 @@ erase.on("click", clearIngredients);
 cardcontainer.addEventListener("click", sendtorecipe);
 beercontainer.addEventListener("click", beerRun);
 clearSlate.addEventListener("click", reset);
+
 clearLocalStorage();
