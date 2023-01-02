@@ -46,6 +46,7 @@ function eventListenerAdd() {
 function clearIngredients(event) {
   event.preventDefault();
   listEL.empty();
+  clearLocalStorage()
 }
 
 // saves ingredients to local storage
@@ -180,7 +181,7 @@ function Searchbutton(event) {
     `;
           }
         });
-      clearLocalStorage();
+      
     });
 }
 
@@ -193,6 +194,7 @@ function ingredientErase(event) {
   var found = this.previousElementSibling.textContent.trim()
   
   var storedIngredients = JSON.parse(localStorage.getItem("ingredient"));
+
    storedIngredients = storedIngredients.filter(function(ingredient) {
     console.log(ingredient)
     return ingredient != found });
@@ -264,5 +266,6 @@ erase.on("click", clearIngredients);
 cardcontainer.addEventListener("click", sendtorecipe);
 beercontainer.addEventListener("click", beerRun);
 clearSlate.addEventListener("click", reset);
+clearSlate.addEventListener('click', clearLocalStorage)
 
 clearLocalStorage();
