@@ -266,6 +266,5 @@ erase.on("click", clearIngredients);
 cardcontainer.addEventListener("click", sendtorecipe);
 beercontainer.addEventListener("click", beerRun);
 clearSlate.addEventListener("click", reset);
-clearSlate.addEventListener('click', clearLocalStorage)
 
 clearLocalStorage();
