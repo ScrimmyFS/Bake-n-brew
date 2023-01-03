@@ -74,7 +74,7 @@ function clearLocalStorage(storedIngredients) {
 function Searchbutton(event) {
   event.preventDefault();
   // if cards exist, overwrites on search
-  reset();
+  
   // searches ingredient based on local storage
   var storedIngredients = JSON.parse(localStorage.getItem("ingredient"));
   console.log(storedIngredients);
@@ -112,6 +112,7 @@ function Searchbutton(event) {
           .then(function (random) {
             console.log(random);
             // makes a card for beer results
+            
             for (var i = 0; i < random.length; i++) {
               beercontainer.innerHTML += `
           <div class="col s12 m6 l3">
@@ -130,6 +131,7 @@ function Searchbutton(event) {
           });
       }
       //  makes card for beer results
+      resetBeer();
       for (var i = 0; i < beer.length; i++) {
         beercontainer.innerHTML += `
     <div class="col s12 m6 l3">
@@ -164,7 +166,7 @@ function Searchbutton(event) {
         })
         .then(function (data) {
           console.log(data);
-
+         resetCard()
           for (var i = 0; i < data.length; i++) {
             cardcontainer.innerHTML += `
     <div class="col s12 m6 l3">
@@ -251,13 +253,17 @@ function sendtorecipe(event) {
 }
 
 // resets card container
+function resetCard() {
+  cardcontainer.innerHTML= ""
+  
+}
+function resetBeer() {
+beercontainer.innerHTML=""
+}
+
 function reset() {
-  while (cardcontainer.firstChild) {
-    cardcontainer.removeChild(cardcontainer.firstChild);
-  }
-  while (beercontainer.firstChild) {
-    beercontainer.removeChild(beercontainer.firstChild);
-  }
+  cardcontainer.innerHTML= ""
+  beercontainer.innerHTML=""
 }
 
 submitbutton.on("click", Searchbutton);
