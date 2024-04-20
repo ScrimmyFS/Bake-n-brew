@@ -17,36 +17,41 @@ function submissionForm(event) {
   // removes error msg
   $(".error").remove();
   var ingredientItem = submitInput.val().trim();
-  // if no ingredient is added, display error 
+  // if no ingredient is added, display error
   if (!ingredientItem) {
     listEL.append(`<li class = "error"> please enter an ingredient</li>`);
-  } else{
-    listEL.append(
-    ` <li class = "ing"> ${ingredientItem} </li> <button class="remove">remove</button>`
-  )};
+  } else {
+    var li = document.createElement("li");
+    li.classList.add("ing");
+    li.innerHTML = ingredientItem;
+    var button = document.createElement("button");
+    button.classList.add("remove");
+    button.innerHTML = "Remove";
+    button.addEventListener("click", ingredientErase);
+    li.append(button);
+    listEL.append(li);
+  }
 
- 
+  // eventListenerAdd();
 
-  eventListenerAdd();
-
- 
   saveIngredients();
   // keeps input area blank
   submitInput.val("");
 }
 
-function eventListenerAdd() {
-  var clearButton = $(".remove");
-  for (i = 0; i < clearButton.length; i++) {
-    clearButton[i].addEventListener("click", ingredientErase);
-  }
-}
+// function eventListenerAdd() {
+//   var clearButton = $(".remove");
+//   for (i = 0; i < clearButton.length; i++) {
+//     console.log(clearButton[i]);
+//     clearButton[i].addEventListener("click", ingredientErase);
+//   }
+// }
 
 // empties the list when button is clicked
 function clearIngredients(event) {
   event.preventDefault();
   listEL.empty();
-  clearLocalStorage()
+  clearLocalStorage();
 }
 
 // saves ingredients to local storage
@@ -74,7 +79,7 @@ function clearLocalStorage(storedIngredients) {
 function Searchbutton(event) {
   event.preventDefault();
   // if cards exist, overwrites on search
-  
+
   // searches ingredient based on local storage
   var storedIngredients = JSON.parse(localStorage.getItem("ingredient"));
   console.log(storedIngredients);
@@ -82,71 +87,73 @@ function Searchbutton(event) {
   // adds (+ for comma in seperatedIngredients) adds (_ for beerIngredients)
   var seperatedIngredients = storedIngredients.toString().replaceAll(",", ",+");
   var beerIngredients = storedIngredients.toString().replaceAll(",", "_");
-  var beerapi =
-    "https://api.punkapi.com/v2/beers?food=" +
-    beerIngredients +
-    "&page=1&per_page=4";
-  var randomapi = "https://api.punkapi.com/v2/beers/random";
-  fetch(beerapi, {
-    method: "GET",
-    credntials: "same-orgin",
-    redirect: "follow",
-  })
-    .then(function (response) {
-      console.log(response);
-      return response.json();
-    })
-    // if beer api does not find a match for ingredients call a random beer
-    .then(function (beer) {
-      console.log(beer);
-      if (beer.length <= 0) {
-        fetch(randomapi, {
-          method: "GET",
-          credntials: "same-orgin",
-          redirect: "follow",
-        })
-          .then(function (response) {
-            console.log(response);
-            return response.json();
-          })
-          .then(function (random) {
-            console.log(random);
-            // makes a card for beer results
-            
-            for (var i = 0; i < random.length; i++) {
-              beercontainer.innerHTML += `
-          <div class="col s12 m6 l3">
-                        <div class="card" data-id="$">
-                            <div class="card-image">
-                                <img src="${random[i].image_url}">
-                            </div>
-                            <div class="card-content">
-                            <p>'${random[i].name}'</p>
-                            </div>
-                        </div>
-      
-                    </div>
-          `;
-            }
-          });
-      }
-      //  makes card for beer results
-      resetBeer();
-      for (var i = 0; i < beer.length; i++) {
-        beercontainer.innerHTML += `
-    <div class="col s12 m6 l3">
-                  <div class="card" data-id="$">
-                      <div class="card-image">
-                          <img src="${beer[i].image_url}">
-                      </div>
-                      <div class="card-content">
-                      <p>'${beer[i].name}'</p>
-                      </div>
-                  </div>
+  // var beerapi =
+  //   "https://api.punkapi.com/v2/beers?food=" +
+  //   beerIngredients +
+  //   "&page=1&per_page=4";
+  // var randomapi = "https://api.punkapi.com/v2/beers/random";
+  // fetch(beerapi, {
+  //   method: "GET",
+  //   credntials: "same-orgin",
+  //   redirect: "follow",
+  //   mode: "no-cors",
+  // })
+  //   .then(function (response) {
+  //     console.log(response);
+  //     return response.json();
+  //   })
+  //   // if beer api does not find a match for ingredients call a random beer
+  //   .then(function (beer) {
+  //     console.log(beer);
+  //     if (beer.length <= 0) {
+  //       fetch(randomapi, {
+  //         method: "GET",
+  //         credntials: "same-orgin",
+  //         redirect: "follow",
+  //         mode:"no-cors",
+  //       })
+  //         .then(function (response) {
+  //           console.log(response);
+  //           return response.json();
+  //         })
+  //         .then(function (random) {
+  //           console.log(random);
+  //           // makes a card for beer results
 
-              </div>
-    `;
-      }
+  //           for (var i = 0; i < random.length; i++) {
+  //             beercontainer.innerHTML += `
+  //         <div class="col s12 m6 l3">
+  //                       <div class="card" data-id="$">
+  //                           <div class="card-image">
+  //                               <img src="${random[i].image_url}">
+  //                           </div>
+  //                           <div class="card-content">
+  //                           <p>'${random[i].name}'</p>
+  //                           </div>
+  //                       </div>
+      
+  //                   </div>
+  //         `;
+  //           }
+  //         });
+  //     }
+  //     //  makes card for beer results
+  //     resetBeer();
+  //     for (var i = 0; i < beer.length; i++) {
+  //       beercontainer.innerHTML += `
+  //   <div class="col s12 m6 l3">
+  //                 <div class="card" data-id="$">
+  //                     <div class="card-image">
+  //                         <img src="${beer[i].image_url}">
+  //                     </div>
+  //                     <div class="card-content">
+  //                     <p>'${beer[i].name}'</p>
+  //                     </div>
+  //                 </div>
+
+  //             </div>
+  //   `;
+  //     }
       // calls ingredients for recipe api
       var api =
         "https://api.spoonacular.com/recipes/findByIngredients?ingredients=" +
@@ -166,7 +173,7 @@ function Searchbutton(event) {
         })
         .then(function (data) {
           console.log(data);
-         resetCard()
+          resetCard();
           for (var i = 0; i < data.length; i++) {
             cardcontainer.innerHTML += `
     <div class="col s12 m6 l3">
@@ -183,27 +190,27 @@ function Searchbutton(event) {
     `;
           }
         });
-      
-    });
+    ;
 }
 
 function ingredientErase(event) {
   event.preventDefault();
+  console.log("ingridient erase");
   var button = event.target;
   console.log(event.target);
-  console.log(button); 
-  
-  var found = this.previousElementSibling.textContent.trim()
-  
+  console.log(button);
+
+  var found = this.parentElement.innerHTML.split("<")[0].trim();
+
   var storedIngredients = JSON.parse(localStorage.getItem("ingredient"));
 
-   storedIngredients = storedIngredients.filter(function(ingredient) {
-    console.log(ingredient)
-    return ingredient != found });
+  storedIngredients = storedIngredients.filter(function (ingredient) {
+    console.log(ingredient);
+    return ingredient != found;
+  });
   localStorage.setItem("ingredient", JSON.stringify(storedIngredients));
-console.log(found)
-  $(this).prev().remove();
-  $(this).remove();
+  console.log(found);
+  $(this).parent().remove();
 }
 
 // links to beer website
@@ -254,16 +261,15 @@ function sendtorecipe(event) {
 
 // resets card container
 function resetCard() {
-  cardcontainer.innerHTML= ""
-  
+  cardcontainer.innerHTML = "";
 }
 function resetBeer() {
-beercontainer.innerHTML=""
+  beercontainer.innerHTML = "";
 }
 
 function reset() {
-  cardcontainer.innerHTML= ""
-  beercontainer.innerHTML=""
+  cardcontainer.innerHTML = "";
+  beercontainer.innerHTML = "";
 }
 
 submitbutton.on("click", Searchbutton);
