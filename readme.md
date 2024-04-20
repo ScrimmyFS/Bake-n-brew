@@ -14,7 +14,7 @@ THEN a list is created of those ingredients and stored locally.\
 WHEN the "Clear Ingredient" button is clicked,\
 THEN the ingredient list is cleared.\
 WHEN I click submit,\
-THEN recipe cards are generated from the ingredient list, with a beer to accompany them.\ (please note the beer API has shut down, currently considering a substitution)
+THEN recipe cards are generated from the ingredient list, with a beer to accompany them. (please note the beer API has shut down, currently considering a substitution)\
 WHEN I click on the recipe I choose,\
 THEN I am taken to a new tab that gives me the recipe.\
 WHEN the "Clear" button is clicked,\
