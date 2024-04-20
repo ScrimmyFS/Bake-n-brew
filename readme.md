@@ -3,6 +3,7 @@
 ## Use ingredients you have to get ideas for meals you can make with them.
 
 As developers, we wanted to create a Web App that will allow people to get recipe ideas based on the ingredients in their homes and suggest a beer paring.
+(please note the beer API has shut down, currently considering a substitution)
 
 
 ## User Story
@@ -13,7 +14,7 @@ THEN a list is created of those ingredients and stored locally.\
 WHEN the "Clear Ingredient" button is clicked,\
 THEN the ingredient list is cleared.\
 WHEN I click submit,\
-THEN recipe cards are generated from the ingredient list, with a beer to accompany them.\
+THEN recipe cards are generated from the ingredient list, with a beer to accompany them.\ (please note the beer API has shut down, currently considering a substitution)
 WHEN I click on the recipe I choose,\
 THEN I am taken to a new tab that gives me the recipe.\
 WHEN the "Clear" button is clicked,\
@@ -51,7 +52,7 @@ Developed by:
 
 ### APIs
 > * [Spoonacular](https://spoonacular.com/food-api/docs)
-> * [Punk API](https://punkapi.com/documentation/v2)
+> * [Punk API](https://punkapi.com/documentation/v2) (shut down)
 
 ### Framework
 > * [Materialize](https://materializecss.com/)
